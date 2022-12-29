@@ -236,7 +236,6 @@ app.post('/annapurna', async (req, res) => {
 app.get('/wanttogo', function (req, res) {
    if (req.session.user) {
       list = user.wantogolist;
-      console.log(list);
       res.render('wanttogo', { wantogolist: req.session.user.wantogolist })
    }
    else {
@@ -256,7 +255,6 @@ app.get('/registration', function (req, res) {
 
 app.post('/search', function (req, res) {
    var x = req.body.Search;
-   console.log(x);
    var options = ['bali', 'inca', 'paris', 'rome', 'santorini', 'annapurna']
    arr = [];
    for (var i = 0; i < options.length; i++) {
