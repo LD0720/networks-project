@@ -56,7 +56,12 @@ app.get('/Home', function (req, res) {
 
 app.get('/searchresults', function (req, res) {
    if (req.session.user) {
+      if(!arr){
+         alert('Not found!');
+      }
+      else{
       res.render('searchresults', { result: arr })
+      }
    }
    else {
       return res.status(400).json({ msg: 'You have to login first' })
