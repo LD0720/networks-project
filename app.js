@@ -45,30 +45,60 @@ app.get('/', function (req, res) {
    //  
 // }
 app.get('/Home', function (req, res) {
-   // if(req.session.user){
+    if(req.session.user){
       res.render('home')
-   // }
+   }
+   else{
+      return res.status(400).json({ msg: 'You have to login first' })
+   }
 
 });
 
 
 app.get('/searchresults', function (req, res) {
+   if(req.session.user){
    res.render('searchresults',{result:arr})
-});
-app.get('/cities', function (req, res) {
-   res.render('cities')
+}
+else{
+   return res.status(400).json({ msg: 'You have to login first' })
+}
 });
 
+app.get('/cities', function (req, res) {
+   if(req.session.user){
+   res.render('cities')
+   }
+   else{
+      return res.status(400).json({ msg: 'You have to login first' })
+   }}
+);
+
 app.get('/hiking', function (req, res) {
+   if(req.session.user){
+
    res.render('hiking')
+   }
+   else{
+      return res.status(400).json({ msg: 'You have to login first' })
+   }
 });
 
 app.get('/islands', function (req, res) {
+if (req.session.user){
    res.render('islands')
+}else{
+   return res.status(400).json({ msg: 'You have to login first' })
+
+}
 });
 
 app.get('/paris', function (req, res) {
+   if (req.session.user){
    res.render('paris')
+}else{
+   return res.status(400).json({ msg: 'You have to login first' })
+}
+
 });
 app.post('/paris',async (req,res) =>{
    const client = await connecttodb(); 
