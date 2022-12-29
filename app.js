@@ -9,6 +9,7 @@ var cookieParser = require('cookie-parser');
 const { options } = require('nodemon/lib/config');
 var user = null;
 var arr = []
+var alert = require('alert');
 
 //session setup
 app.use(cookieParser());
@@ -41,9 +42,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', function (req, res) {
    res.render('login')
 });
-// if (req.session.user){
-//  
-// }
+
 app.get('/Home', function (req, res) {
    if (req.session.user) {
       res.render('home')
