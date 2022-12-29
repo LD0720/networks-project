@@ -56,7 +56,7 @@ app.get('/Home', function (req, res) {
 
 app.get('/searchresults', function (req, res) {
    if (req.session.user) {
-      if(!arr){
+      if(arr.length==0){
          alert('Not found!');
       }
       else{
