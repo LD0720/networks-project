@@ -41,210 +41,142 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', function (req, res) {
    res.render('login')
 });
-// if (req.user){
-   //  
-// }
-app.get('/Home', function (req, res) {
-    if(req.user){
-      res.render('home')
-   }
-   else{
-      return res.status(400).json({ msg: 'You have to login first' })
-   }
 
+app.get('/Home', function (req, res) {
+   res.render('home')
 });
 
 
 app.get('/searchresults', function (req, res) {
-   if(req.user){
    res.render('searchresults',{result:arr})
-}
-else{
-   return res.status(400).json({ msg: 'You have to login first' })
-}
 });
-//5656
 app.get('/cities', function (req, res) {
-   if(req.user){
    res.render('cities')
-   }
-   else{
-      return res.status(400).json({ msg: 'You have to login first' })
-   }}
-);
+});
 
 app.get('/hiking', function (req, res) {
-   if(req.user){
-
    res.render('hiking')
-   }
-   else{
-      return res.status(400).json({ msg: 'You have to login first' })
-   }
 });
 
 app.get('/islands', function (req, res) {
-if (req.user){
    res.render('islands')
-}else{
-   return res.status(400).json({ msg: 'You have to login first' })
-
-}
 });
 
 app.get('/paris', function (req, res) {
-   if (req.user){
    res.render('paris')
-}else{
-   return res.status(400).json({ msg: 'You have to login first' })
-}
-
 });
 app.post('/paris',async (req,res) =>{
    const client = await connecttodb(); 
    const db = client.db('myDB');
 
-   if(req.user.wantogolist.includes("paris")){
+   if(req.session.user.wantogolist.includes("paris")){
       return res.status(400).json({ msg: 'This destination is in the list already' });
    }
    else{
-      req.user.wantogolist.push("paris");
+      req.session.user.wantogolist.push("paris");
       req.session.save();
-      db.collection("myCollection").updateOne({username:req.user.username},{$set:{wantogolist:req.user.wantogolist}});
+      db.collection("myCollection").updateOne({username:req.session.user.username},{$set:{wantogolist:req.session.user.wantogolist}});
       res.redirect("/paris");
    }
 });
 
 app.get('/rome', function (req, res) {
-   if(req.user){
-   res.render('rome')}
-   else{
-      return res.status(400).json({ msg: 'You have to login first' })
-   }
+   res.render('rome')
 });
 
 app.post('/rome',async (req,res) =>{
    const client = await connecttodb(); 
    const db = client.db('myDB');
-   if(req.user.wantogolist.includes("Rome")){
+   if(req.session.user.wantogolist.includes("Rome")){
       return res.status(400).json({ msg: 'This destination is in the list already' });
    }
    else{
-      req.user.wantogolist.push("Rome");
+      req.session.user.wantogolist.push("Rome");
       req.session.save();
-      db.collection("myCollection").updateOne({username:req.user.username},{$set:{wantogolist:req.user.wantogolist}});
+      db.collection("myCollection").updateOne({username:req.session.user.username},{$set:{wantogolist:req.session.user.wantogolist}});
       res.redirect("/rome");
    }
 });
 
 app.get('/bali', function (req, res) {
-   if(req.user){
    res.render('bali')
-   }
-   else{
-      return res.status(400).json({ msg: 'You have to login first' })
-   }
 });
 app.post('/bali',async (req,res) =>{
    const client = await connecttodb(); 
    const db = client.db('myDB');
-   if(req.user.wantogolist.includes("Bali")){
+   if(req.session.user.wantogolist.includes("Bali")){
       return res.status(400).json({ msg: 'This destination is in the list already' });
    }
    else{
-      req.user.wantogolist.push("Bali");
+      req.session.user.wantogolist.push("Bali");
       req.session.save();
-      db.collection("myCollection").updateOne({username:req.user.username},{$set:{wantogolist:req.user.wantogolist}});
+      db.collection("myCollection").updateOne({username:req.session.user.username},{$set:{wantogolist:req.session.user.wantogolist}});
       res.redirect("/bali");
    }
 });
 
 app.get('/santorini', function (req, res) {
-   if(req.user){
    res.render('santorini')
-   }
-   else{
-      return res.status(400).json({ msg: 'You have to login first' })
-   }
 });
 
 app.post('/santorini',async (req,res) =>{
    const client = await connecttodb(); 
    const db = client.db('myDB');
-   if(req.user.wantogolist.includes("Santorini")){
+   if(req.session.user.wantogolist.includes("Santorini")){
       return res.status(400).json({ msg: 'This destination is in the list already' });
    }
    else{
-      req.user.wantogolist.push("Santorini");
+      req.session.user.wantogolist.push("Santorini");
       req.session.save();
-      db.collection("myCollection").updateOne({username:req.user.username},{$set:{wantogolist:req.user.wantogolist}});
+      db.collection("myCollection").updateOne({username:req.session.user.username},{$set:{wantogolist:req.session.user.wantogolist}});
       res.redirect("/santorini");
    }
 });
 
 app.get('/inca', function (req, res) {
-   if(req.user){
    res.render('inca')
-   }
-   else{
-      return res.status(400).json({ msg: 'You have to login first' })
-   }
 });
 
 app.post('/inca',async (req,res) =>{
    const client = await connecttodb(); 
    const db = client.db('myDB');
-   if(req.user.wantogolist.includes("Inca")){
+   if(req.session.user.wantogolist.includes("Inca")){
       return res.status(400).json({ msg: 'This destination is in the list already' });
    }
    else{
-      req.user.wantogolist.push("Inca");
+      req.session.user.wantogolist.push("Inca");
       req.session.save();
-      db.collection("myCollection").updateOne({username:req.user.username},{$set:{wantogolist:req.user.wantogolist}});
+      db.collection("myCollection").updateOne({username:req.session.user.username},{$set:{wantogolist:req.session.user.wantogolist}});
       res.redirect("/inca");
    }
 });
 
 app.get('/annapurna', function (req, res) {
-   if(req.user){
    res.render('annapurna')
-   }
-   else{
-      return res.status(400).json({ msg: 'You have to login first' })
-   }
 });
 app.post('/annapurna',async (req,res) =>{
    const client = await connecttodb(); 
    const db = client.db('myDB');
-   if(req.user.wantogolist.includes("Annapurna")){
+   if(req.session.user.wantogolist.includes("Annapurna")){
       return res.status(400).json({ msg: 'This destination is in the list already' });
    }
    else{
-      req.user.wantogolist.push("Annapurna");
+      req.session.user.wantogolist.push("Annapurna");
       req.session.save();
-      db.collection("myCollection").updateOne({username:req.user.username},{$set:{wantogolist:req.user.wantogolist}});
+      db.collection("myCollection").updateOne({username:req.session.user.username},{$set:{wantogolist:req.session.user.wantogolist}});
       res.redirect("/annapurna");
    }
 });
 
 app.get('/wanttogo', function (req, res) {
-   if(req.user){
    list = user.wantogolist ;
    console.log(list);
-   res.render('wanttogo',{wantogolist: req.user.wantogolist} )}
-   else{
-      return res.status(400).json({ msg: 'You have to login first' })
-   }f
+   res.render('wanttogo',{wantogolist: req.session.user.wantogolist} )
 });
 
 
 app.get('/registration', function (req, res) {
-   if(req.user){
    res.render('registration')
-   }
-   else{
-      return res.status(400).json({ msg: 'You have to login first' })
-   }
 });
 
 app.post('/search', function (req, res) {
@@ -304,7 +236,7 @@ app.post('/register',  async(req, res)=> {
          return res.status(400).json({ msg: 'User does not exist' });
      }
       if (password === user.password) {
-         req.user=user;
+         req.session.user=user;
          req.session.save();
          res.redirect('/Home');
       } else {
