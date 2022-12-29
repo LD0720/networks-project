@@ -286,6 +286,7 @@ app.post('/register', async (req, res) => {
       }
       else {
          await db.collection('myCollection').insertOne(user);
+         alert('you registered successfully');
          res.redirect('/');
       }
    }
