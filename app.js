@@ -41,9 +41,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', function (req, res) {
    res.render('login')
 });
-
+// if (req.session.user){
+   //  
+// }
 app.get('/Home', function (req, res) {
-   res.render('home')
+   // if(req.session.user){
+      res.render('home')
+   // }
+
 });
 
 
