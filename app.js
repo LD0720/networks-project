@@ -63,7 +63,7 @@ else{
    return res.status(400).json({ msg: 'You have to login first' })
 }
 });
-
+//5656
 app.get('/cities', function (req, res) {
    if(req.session.user){
    res.render('cities')
