@@ -41,11 +41,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', function (req, res) {
    res.render('login')
 });
-// if (req.user){
+// if (req.session.user){
    //  
 // }
 app.get('/Home', function (req, res) {
-    if(req.user){
+    if(req.session.user){
       res.render('home')
    }
    else{
@@ -56,7 +56,7 @@ app.get('/Home', function (req, res) {
 
 
 app.get('/searchresults', function (req, res) {
-   if(req.user){
+   if(req.session.user){
    res.render('searchresults',{result:arr})
 }
 else{
@@ -65,7 +65,7 @@ else{
 });
 //5656
 app.get('/cities', function (req, res) {
-   if(req.user){
+   if(req.session.user){
    res.render('cities')
    }
    else{
@@ -74,7 +74,7 @@ app.get('/cities', function (req, res) {
 );
 
 app.get('/hiking', function (req, res) {
-   if(req.user){
+   if(req.session.user){
 
    res.render('hiking')
    }
@@ -84,7 +84,7 @@ app.get('/hiking', function (req, res) {
 });
 
 app.get('/islands', function (req, res) {
-if (req.user){
+if (req.session.user){
    res.render('islands')
 }else{
    return res.status(400).json({ msg: 'You have to login first' })
@@ -93,7 +93,7 @@ if (req.user){
 });
 
 app.get('/paris', function (req, res) {
-   if (req.user){
+   if (req.session.user){
    res.render('paris')
 }else{
    return res.status(400).json({ msg: 'You have to login first' })
@@ -104,19 +104,19 @@ app.post('/paris',async (req,res) =>{
    const client = await connecttodb(); 
    const db = client.db('myDB');
 
-   if(req.user.wantogolist.includes("paris")){
+   if(req.session.user.wantogolist.includes("paris")){
       return res.status(400).json({ msg: 'This destination is in the list already' });
    }
    else{
-      req.user.wantogolist.push("paris");
+      req.session.user.wantogolist.push("paris");
       req.session.save();
-      db.collection("myCollection").updateOne({username:req.user.username},{$set:{wantogolist:req.user.wantogolist}});
+      db.collection("myCollection").updateOne({username:req.session.user.username},{$set:{wantogolist:req.session.user.wantogolist}});
       res.redirect("/paris");
    }
 });
 
 app.get('/rome', function (req, res) {
-   if(req.user){
+   if(req.session.user){
    res.render('rome')}
    else{
       return res.status(400).json({ msg: 'You have to login first' })
@@ -126,19 +126,19 @@ app.get('/rome', function (req, res) {
 app.post('/rome',async (req,res) =>{
    const client = await connecttodb(); 
    const db = client.db('myDB');
-   if(req.user.wantogolist.includes("Rome")){
+   if(req.session.user.wantogolist.includes("Rome")){
       return res.status(400).json({ msg: 'This destination is in the list already' });
    }
    else{
-      req.user.wantogolist.push("Rome");
+      req.session.user.wantogolist.push("Rome");
       req.session.save();
-      db.collection("myCollection").updateOne({username:req.user.username},{$set:{wantogolist:req.user.wantogolist}});
+      db.collection("myCollection").updateOne({username:req.session.user.username},{$set:{wantogolist:req.session.user.wantogolist}});
       res.redirect("/rome");
    }
 });
 
 app.get('/bali', function (req, res) {
-   if(req.user){
+   if(req.session.user){
    res.render('bali')
    }
    else{
@@ -148,19 +148,19 @@ app.get('/bali', function (req, res) {
 app.post('/bali',async (req,res) =>{
    const client = await connecttodb(); 
    const db = client.db('myDB');
-   if(req.user.wantogolist.includes("Bali")){
+   if(req.session.user.wantogolist.includes("Bali")){
       return res.status(400).json({ msg: 'This destination is in the list already' });
    }
    else{
-      req.user.wantogolist.push("Bali");
+      req.session.user.wantogolist.push("Bali");
       req.session.save();
-      db.collection("myCollection").updateOne({username:req.user.username},{$set:{wantogolist:req.user.wantogolist}});
+      db.collection("myCollection").updateOne({username:req.session.user.username},{$set:{wantogolist:req.session.user.wantogolist}});
       res.redirect("/bali");
    }
 });
 
 app.get('/santorini', function (req, res) {
-   if(req.user){
+   if(req.session.user){
    res.render('santorini')
    }
    else{
@@ -171,19 +171,19 @@ app.get('/santorini', function (req, res) {
 app.post('/santorini',async (req,res) =>{
    const client = await connecttodb(); 
    const db = client.db('myDB');
-   if(req.user.wantogolist.includes("Santorini")){
+   if(req.session.user.wantogolist.includes("Santorini")){
       return res.status(400).json({ msg: 'This destination is in the list already' });
    }
    else{
-      req.user.wantogolist.push("Santorini");
+      req.session.user.wantogolist.push("Santorini");
       req.session.save();
-      db.collection("myCollection").updateOne({username:req.user.username},{$set:{wantogolist:req.user.wantogolist}});
+      db.collection("myCollection").updateOne({username:req.session.user.username},{$set:{wantogolist:req.session.user.wantogolist}});
       res.redirect("/santorini");
    }
 });
 
 app.get('/inca', function (req, res) {
-   if(req.user){
+   if(req.session.user){
    res.render('inca')
    }
    else{
@@ -194,19 +194,19 @@ app.get('/inca', function (req, res) {
 app.post('/inca',async (req,res) =>{
    const client = await connecttodb(); 
    const db = client.db('myDB');
-   if(req.user.wantogolist.includes("Inca")){
+   if(req.session.user.wantogolist.includes("Inca")){
       return res.status(400).json({ msg: 'This destination is in the list already' });
    }
    else{
-      req.user.wantogolist.push("Inca");
+      req.session.user.wantogolist.push("Inca");
       req.session.save();
-      db.collection("myCollection").updateOne({username:req.user.username},{$set:{wantogolist:req.user.wantogolist}});
+      db.collection("myCollection").updateOne({username:req.session.user.username},{$set:{wantogolist:req.session.user.wantogolist}});
       res.redirect("/inca");
    }
 });
 
 app.get('/annapurna', function (req, res) {
-   if(req.user){
+   if(req.session.user){
    res.render('annapurna')
    }
    else{
@@ -216,22 +216,22 @@ app.get('/annapurna', function (req, res) {
 app.post('/annapurna',async (req,res) =>{
    const client = await connecttodb(); 
    const db = client.db('myDB');
-   if(req.user.wantogolist.includes("Annapurna")){
+   if(req.session.user.wantogolist.includes("Annapurna")){
       return res.status(400).json({ msg: 'This destination is in the list already' });
    }
    else{
-      req.user.wantogolist.push("Annapurna");
+      req.session.user.wantogolist.push("Annapurna");
       req.session.save();
-      db.collection("myCollection").updateOne({username:req.user.username},{$set:{wantogolist:req.user.wantogolist}});
+      db.collection("myCollection").updateOne({username:req.session.user.username},{$set:{wantogolist:req.session.user.wantogolist}});
       res.redirect("/annapurna");
    }
 });
 
 app.get('/wanttogo', function (req, res) {
-   if(req.user){
+   if(req.session.user){
    list = user.wantogolist ;
    console.log(list);
-   res.render('wanttogo',{wantogolist: req.user.wantogolist} )}
+   res.render('wanttogo',{wantogolist: req.session.user.wantogolist} )}
    else{
       return res.status(400).json({ msg: 'You have to login first' })
    }
@@ -239,7 +239,7 @@ app.get('/wanttogo', function (req, res) {
 
 
 app.get('/registration', function (req, res) {
-   if(req.user){
+   if(req.session.user){
    res.render('registration')
    }
    else{
@@ -292,6 +292,7 @@ app.post('/register',  async(req, res)=> {
     const username = req.body.username;
     const password = req.body.password;
       if(username=='admin' && password=='admin'){
+         req.session.user='admin';
          res.redirect('/Home');
       }
       else{
@@ -304,7 +305,7 @@ app.post('/register',  async(req, res)=> {
          return res.status(400).json({ msg: 'User does not exist' });
      }
       if (password === user.password) {
-         req.user=user;
+         req.session.user=user;
          req.session.save();
          res.redirect('/Home');
       } else {
