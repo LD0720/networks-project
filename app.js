@@ -116,7 +116,11 @@ app.post('/paris',async (req,res) =>{
 });
 
 app.get('/rome', function (req, res) {
-   res.render('rome')
+   if(req.session.user){
+   res.render('rome')}
+   else{
+      return res.status(400).json({ msg: 'You have to login first' })
+   }
 });
 
 app.post('/rome',async (req,res) =>{
@@ -134,7 +138,12 @@ app.post('/rome',async (req,res) =>{
 });
 
 app.get('/bali', function (req, res) {
+   if(req.session.user){
    res.render('bali')
+   }
+   else{
+      return res.status(400).json({ msg: 'You have to login first' })
+   }
 });
 app.post('/bali',async (req,res) =>{
    const client = await connecttodb(); 
@@ -151,7 +160,12 @@ app.post('/bali',async (req,res) =>{
 });
 
 app.get('/santorini', function (req, res) {
+   if(req.session.user){
    res.render('santorini')
+   }
+   else{
+      return res.status(400).json({ msg: 'You have to login first' })
+   }
 });
 
 app.post('/santorini',async (req,res) =>{
@@ -169,7 +183,12 @@ app.post('/santorini',async (req,res) =>{
 });
 
 app.get('/inca', function (req, res) {
+   if(req.session.user){
    res.render('inca')
+   }
+   else{
+      return res.status(400).json({ msg: 'You have to login first' })
+   }
 });
 
 app.post('/inca',async (req,res) =>{
@@ -187,7 +206,12 @@ app.post('/inca',async (req,res) =>{
 });
 
 app.get('/annapurna', function (req, res) {
+   if(req.session.user){
    res.render('annapurna')
+   }
+   else{
+      return res.status(400).json({ msg: 'You have to login first' })
+   }
 });
 app.post('/annapurna',async (req,res) =>{
    const client = await connecttodb(); 
@@ -204,14 +228,23 @@ app.post('/annapurna',async (req,res) =>{
 });
 
 app.get('/wanttogo', function (req, res) {
+   if(req.session.user){
    list = user.wantogolist ;
    console.log(list);
-   res.render('wanttogo',{wantogolist: req.session.user.wantogolist} )
+   res.render('wanttogo',{wantogolist: req.session.user.wantogolist} )}
+   else{
+      return res.status(400).json({ msg: 'You have to login first' })
+   }
 });
 
 
 app.get('/registration', function (req, res) {
+   if(req.session.user){
    res.render('registration')
+   }
+   else{
+      return res.status(400).json({ msg: 'You have to login first' })
+   }
 });
 
 app.post('/search', function (req, res) {
