@@ -297,7 +297,6 @@ app.post('/login', async (req, res) => {
       req.session.user = 'admin';
       req.session.save();
       res.redirect('/Home');
-      //hjvbhj
    }
    else {
       const client = await connecttodb();
