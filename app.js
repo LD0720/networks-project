@@ -300,6 +300,7 @@ app.post('/login', async (req, res) => {
    const password = req.body.password;
    if (username == 'admin' && password == 'admin') {
       req.session.user = 'admin';
+      req.session.save();
       res.redirect('/Home');
    }
    else {
