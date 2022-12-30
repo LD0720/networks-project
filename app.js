@@ -9,7 +9,6 @@ var cookieParser = require('cookie-parser');
 const { options } = require('nodemon/lib/config');
 var user = null;
 var arr = []
-var alert = require('alert');
 
 //session setup
 app.use(cookieParser());
@@ -57,7 +56,8 @@ app.get('/Home', function (req, res) {
 app.get('/searchresults', function (req, res) {
    if (req.session.user) {
       if(arr.length==0){
-         alert('Not found!');
+         return res.status(400).json({ msg: 'NOT FOUND' })
+
       }
       else{
       res.render('searchresults', { result: arr })
@@ -245,12 +245,7 @@ app.get('/wanttogo', function (req, res) {
 
 
 app.get('/registration', function (req, res) {
-   if (req.session.user) {
       res.render('registration')
-   }
-   else {
-      return res.status(400).json({ msg: 'You have to login first' })
-   }
 });
 
 app.post('/search', function (req, res) {
@@ -288,7 +283,6 @@ app.post('/register', async (req, res) => {
       }
       else {
          await db.collection('myCollection').insertOne(user);
-         alert('you registered successfully');
          res.redirect('/');
       }
    }
