@@ -26,7 +26,7 @@ app.set('view engine', 'ejs');
 
 
 //database connection
-const connecttodb = async () => {
+const connecttodb = async () => { 
    const client = await MongoClient.connect("mongodb://127.0.0.1", {
       useNewUrlParser: true,
       useUnifiedTopology: true
@@ -53,20 +53,7 @@ app.get('/Home', function (req, res) {
 });
 
 
-app.get('/searchresults', function (req, res) {
-   if (req.session.user) {
-      if(arr.length==0){
-         return res.status(400).json({ msg: 'NOT FOUND' })
 
-      }
-      else{
-      res.render('searchresults', { result: arr })
-      }
-   }
-   else {
-      return res.status(400).json({ msg: 'You have to login first' })
-   }
-});
 //5656
 app.get('/cities', function (req, res) {
    if (req.session.user) {
@@ -260,6 +247,20 @@ app.post('/search', function (req, res) {
    res.redirect('/searchresults');
 });
 
+app.get('/searchresults', function (req, res) {
+   if (req.session.user) {
+      if(arr.length==0){
+         return res.status(400).json({ msg: 'NOT FOUND' })
+      }
+      else{
+      res.render('searchresults', { result: arr })
+      }
+   }
+   else {
+      return res.status(400).json({ msg: 'You have to login first' })
+   }
+});
+
 app.post('/register', async (req, res) => {
    var username = req.body.username;
    var password = req.body.password;
@@ -319,3 +320,5 @@ app.post('/login', async (req, res) => {
 });
 
 app.listen(3000);
+//hjbghvgf
+//alm
